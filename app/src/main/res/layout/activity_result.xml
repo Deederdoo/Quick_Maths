@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/result_layout_rel_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/text_right_answer"
+                android:text="right answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"/>
+
+            <TextView
+                android:id="@+id/text_wrong_answer"
+                android:text="wrong answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_toRightOf="@id/text_right_answer"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/result_layout_rel_middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/text_score"
+            android:text="SCORE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:textSize="100dp"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/result_layout_rel_bot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/result_layout_rel_middle">
+
+        <Button
+            android:id="@+id/button_play_again"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Play Again"
+            android:layout_margin="20dp"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/button_submit_score"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Submit Score"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/button_play_again"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

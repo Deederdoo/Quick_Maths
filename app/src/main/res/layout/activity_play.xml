@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/play_layout_rel_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/text_equation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:layout_centerHorizontal="true"
+            android:text="Equation" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/play_layout_rel_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <ProgressBar
+                android:id="@+id/progress_progress"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                style="@android:style/Widget.ProgressBar.Horizontal"/>
+
+            <TextView
+                android:id="@+id/text_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/progress_progress"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_rel_bottom_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="150dp">
+
+                <Button
+                    android:id="@+id/button_ans1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_margin="25dp" />
+
+                <Button
+                    android:id="@+id/button_ans2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_toRightOf="@id/button_ans1"
+                    android:layout_margin="25dp"
+                    />
+
+                <Button
+                    android:id="@+id/button_ans3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/button_ans1"
+                    android:layout_margin="25dp"
+                    />
+
+                <Button
+                    android:id="@+id/button_ans4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_toRightOf="@id/button_ans1"
+                    android:layout_below="@id/button_ans1"
+                    android:layout_margin="25dp"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    <Button
+        android:id="@+id/button_start"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/play_layout_rel_bottom"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
