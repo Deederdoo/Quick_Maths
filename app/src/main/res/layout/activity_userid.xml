@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/userid_layout_rel_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/text_userid"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            android:layout_marginBottom="20dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Enter name"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/userid_layout_rel_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userid_layout_rel_top">
+
+        <Button
+            android:id="@+id/button_submit_userid"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Submit Name"
+            android:layout_margin="20dp"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/button_home_userid"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Return Home"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/button_submit_userid"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
