@@ -56,43 +56,14 @@ public class UserIDScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                try {
-//
-//                    url = new URL("http://localhost:8080/API_Scoreboard/webapi/myresource/score");
-//                    con = (HttpURLConnection)url.openConnection();
-//                    con.setRequestMethod("POST");
-//                    con.setRequestProperty("Content-Type", "application/json; utf-8");
-//                    con.setRequestProperty("Accept", "application/json");
-//
-//                    String jsonString = "{'ranking': " + "'1', " + "'score': '" + bundle.getIntArray("standing").toString() + "', 'userid': '" + userid.getText().toString() + "'}";
-//                    Log.e("Testing", "JsonString: " + jsonString);
-//
-//                    OutputStream os = con.getOutputStream();
-//                    byte[] input = jsonString.getBytes("utf-8");
-//                    os.write(input, 0, input.length);
-//
-//                    BufferedReader br = new BufferedReader(
-//                            new InputStreamReader(con.getInputStream(), "utf-8"){
-//                        StringBuilder response = new StringBuilder();
-//                        String responseLine = null;
-//                        while((responseLine = br.readLine()) != null){
-//                            response.append(responseLine.trim());
-//                                }
-//                    });
-//
-//                } catch (MalformedURLException e) {
-//
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//
-//                    e.printStackTrace();
-//                }
-
                 String url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/score";
                 String jsonString = "{\"score\": " + bundle.getDouble("finalscore") + ", \"userid\": \"" + userid.getText().toString() + "\"}";
                 Log.e("Testing", "JsonString: " + jsonString);
 
                 new PostRequest().execute(url, jsonString);
+
+                nextActivity = new Intent(UserIDScreen.this, Scoreboard.class);
+                startActivity(nextActivity);
             }
         });
     }

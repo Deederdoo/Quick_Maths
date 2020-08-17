@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/diff_layout_rel_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/diff_layout_rel_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/button_difficulty_easy"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Easy"/>
+
+        <Button
+            android:id="@+id/button_difficulty_intermediate"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Intermediate"
+            android:layout_below="@id/button_difficulty_easy"/>
+
+        <Button
+            android:id="@+id/button_difficulty_hard"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Hard"
+            android:layout_below="@id/button_difficulty_intermediate"/>
+
+        <Button
+            android:id="@+id/button_difficulty_savant"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Savant"
+            android:layout_below="@id/button_difficulty_hard"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/diff_layout_rel_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+</RelativeLayout>

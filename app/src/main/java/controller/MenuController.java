@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,14 +12,17 @@ import com.example.quickmaths.R;
 
 public class MenuController extends AppCompatActivity {
 
-    private Button playButton;
+    //Buttons
+    private Button playButton, scoreButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        //Buttons
         playButton = (Button) findViewById(R.id.button_play);
+        scoreButton = (Button) findViewById(R.id.button_home_scores);
 
         playButton.setOnClickListener(new View.OnClickListener() {
 
@@ -26,6 +30,15 @@ public class MenuController extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent nextActivity = new Intent(MenuController.this, PlayScreen.class);
+                startActivity(nextActivity);
+            }
+        });
+
+        scoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent nextActivity = new Intent(MenuController.this, Scoreboard.class);
                 startActivity(nextActivity);
             }
         });
