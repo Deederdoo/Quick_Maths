@@ -7,7 +7,23 @@
     <RelativeLayout
         android:id="@+id/scoreboard_layout_rel_top"
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true">
+
+        <Spinner
+            android:id="@+id/spinner_scoreboard_difficulty"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:spinnerMode="dropdown"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/scoreboard_layout_rel_center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/scoreboard_layout_rel_top"
         android:layout_above="@id/scoreboard_layout_rel_bottom">
 
         <ListView
@@ -20,8 +36,15 @@
     <RelativeLayout
         android:id="@+id/scoreboard_layout_rel_bottom"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/button_scoreboard_back"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Back"/>
 
     </RelativeLayout>
 

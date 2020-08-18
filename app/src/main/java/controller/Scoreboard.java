@@ -1,9 +1,15 @@
 package controller;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,20 +32,37 @@ import java.util.List;
 import adapters.ScoreListAdapter;
 import models.Score;
 
-public class Scoreboard extends AppCompatActivity {
+import static controller.DifficultyScreen.isEasy;
+import static controller.DifficultyScreen.isHard;
+import static controller.DifficultyScreen.isInter;
+import static controller.DifficultyScreen.isSavant;
+import static controller.PlayScreen.MODE_EASY;
+import static controller.PlayScreen.MODE_HARD;
+import static controller.PlayScreen.MODE_INTERMEDIATE;
+import static controller.PlayScreen.MODE_SAVANT;
+
+public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     //URL
-    String url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores";
+    private String url;
 
     //ListView
     private ListView scoreList;
 
+    //Spinner/Dropdown
+    private Spinner dropdown;
+
     //ArrayList / Adapter
     private List<Score> sList;
     private ScoreListAdapter slAdapt;
+    private ArrayAdapter<String> dropAdapt;
+    private List<String> diffList;
 
     //Score
     private Score score;
+
+    //Button
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +72,107 @@ public class Scoreboard extends AppCompatActivity {
         //ListView
         scoreList = (ListView) findViewById(R.id.list_scoreboard);
 
-        //ScoreList
+        //ArrayList
         sList = new ArrayList<>();
+        diffList = new ArrayList<>();
+        diffList.add(MODE_EASY);
+        diffList.add(MODE_INTERMEDIATE);
+        diffList.add(MODE_HARD);
+        diffList.add(MODE_SAVANT);
 
+        //Adapter
+        dropAdapt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, diffList);
+
+        //Spinner
+        dropdown = (Spinner) findViewById(R.id.spinner_scoreboard_difficulty);
+        dropdown.setAdapter(dropAdapt);
+        dropdown.setOnItemSelectedListener(this);
+
+        //Buttons
+        backButton = (Button) findViewById(R.id.button_scoreboard_back);
+
+        setUrlDifficulty();
         new GetRequest().execute(url);
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent nextActivity = new Intent(Scoreboard.this, MenuController.class);
+                startActivity(nextActivity);
+            }
+        });
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        if(i == 0){
+
+            isEasy = true;
+            isInter = false;
+            isHard = false;
+            isSavant = false;
+            sList.clear();
+            setUrlDifficulty();
+            new GetRequest().execute(url);
+
+        }else if (i == 1){
+
+            isEasy = false;
+            isInter = true;
+            isHard = false;
+            isSavant = false;
+            sList.clear();
+            setUrlDifficulty();
+            new GetRequest().execute(url);
+
+        }else if(i == 2) {
+
+            isEasy = false;
+            isInter = false;
+            isHard = true;
+            isSavant = false;
+            sList.clear();
+            setUrlDifficulty();
+            new GetRequest().execute(url);
+
+        }else if(i == 3){
+
+            isEasy = false;
+            isInter = false;
+            isHard = false;
+            isSavant = true;
+            sList.clear();
+            setUrlDifficulty();
+            new GetRequest().execute(url);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    public void setUrlDifficulty() {
+
+        if(isEasy){
+
+            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_easy";
+
+        }else if(isInter){
+
+            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_intermediate";
+
+        }else if(isHard){
+
+            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_hard";
+
+        }else if(isSavant){
+
+            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_savant";
+        }
     }
 
     private class GetRequest extends AsyncTask<String, Integer, String> {
@@ -118,6 +237,7 @@ public class Scoreboard extends AppCompatActivity {
 
             try {
 
+                sList.clear();
                 JSONArray jsonArray = new JSONArray(s);
 
                 for(int i = 0; i < jsonArray.length(); i++) {

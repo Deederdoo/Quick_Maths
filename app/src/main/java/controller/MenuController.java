@@ -29,7 +29,7 @@ public class MenuController extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent nextActivity = new Intent(MenuController.this, PlayScreen.class);
+                Intent nextActivity = new Intent(MenuController.this, DifficultyScreen.class);
                 startActivity(nextActivity);
             }
         });

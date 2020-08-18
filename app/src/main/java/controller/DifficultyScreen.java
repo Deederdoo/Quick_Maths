@@ -12,7 +12,7 @@ import com.example.quickmaths.R;
 public class DifficultyScreen extends AppCompatActivity {
 
     //Booleans
-    public static boolean isEasy = false;
+    public static boolean isEasy = true;
     public static boolean isInter = false;
     public static boolean isHard = false;
     public static boolean isSavant = false;

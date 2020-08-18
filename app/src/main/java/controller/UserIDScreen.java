@@ -11,22 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quickmaths.R;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import tools.PostRequest;
+
+import static controller.DifficultyScreen.isEasy;
+import static controller.DifficultyScreen.isHard;
+import static controller.DifficultyScreen.isInter;
+import static controller.DifficultyScreen.isSavant;
 
 public class UserIDScreen extends AppCompatActivity {
 
     //Connection
-    PostRequest postR;
-    private URL url;
-    private HttpURLConnection con;
+    private String url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/score";
 
     //Buttons
     private Button submitName, backHome;
@@ -56,7 +51,7 @@ public class UserIDScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/score";
+                setUrlDifficulty();
                 String jsonString = "{\"score\": " + bundle.getDouble("finalscore") + ", \"userid\": \"" + userid.getText().toString() + "\"}";
                 Log.e("Testing", "JsonString: " + jsonString);
 
@@ -66,5 +61,34 @@ public class UserIDScreen extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
+
+        backHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                nextActivity = new Intent(UserIDScreen.this, MenuController.class);
+                startActivity(nextActivity);
+            }
+        });
+    }
+
+    public void setUrlDifficulty() {
+
+        if(isEasy){
+
+            url += "_easy";
+
+        }else if(isInter){
+
+            url += "_intermediate";
+
+        }else if(isHard){
+
+            url += "_hard";
+
+        }else if(isSavant){
+
+            url += "_savant";
+        }
     }
 }

@@ -21,17 +21,17 @@ import java.util.Set;
 import tools.EquationGene;
 import tools.TimerTool;
 
+import static controller.DifficultyScreen.isEasy;
+import static controller.DifficultyScreen.isHard;
+import static controller.DifficultyScreen.isInter;
+import static controller.DifficultyScreen.isSavant;
+
 public class PlayScreen extends AppCompatActivity {
 
     public static final String MODE_EASY = "EASY";
     public static final String MODE_INTERMEDIATE = "INTERMEDIATE";
     public static final String MODE_HARD = "HARD";
     public static final String MODE_SAVANT = "SAVANT";
-
-    private boolean mode_easy = true;
-    private boolean mode_intermediate = false;
-    private boolean mode_hard = false;
-    private boolean mode_savant = false;
 
     private ProgressBar progressBar;
     private Button startButton, button1, button2, button3, button4;
@@ -89,7 +89,7 @@ public class PlayScreen extends AppCompatActivity {
                     timerTool.startTimer();
 
                     equationGene = new EquationGene();
-                    eqArray = equationGene.selectDifficulty(MODE_EASY); // temporary
+                    eqArray = equationGene.selectDifficulty(getDifficultyMode());
                     equation.setText(generateEquationString(eqArray));
                     answer = eqArray[2];
 
@@ -176,6 +176,34 @@ public class PlayScreen extends AppCompatActivity {
 
     /**
      *
+     * This method sets the difficulty based on chosen
+     * difficulty using the static boolean values
+    *
+    * */
+    public String getDifficultyMode() {
+
+        if(isEasy){
+
+            return MODE_EASY;
+
+        }else if(isInter){
+
+            return MODE_INTERMEDIATE;
+
+        }else if(isHard){
+
+            return MODE_HARD;
+
+        }else if(isSavant) {
+
+            return  MODE_SAVANT;
+        }
+
+        return null;
+    }
+
+    /**
+     *
      * When user correctly answers the equation, this method will
      * be called. Correct answers will be saved
     *
@@ -183,11 +211,11 @@ public class PlayScreen extends AppCompatActivity {
     public void correctAnswer() {
 
         correctAnswerCount++;
-        eqArray = equationGene.selectDifficulty(MODE_EASY); // temporary
+        eqArray = equationGene.selectDifficulty(getDifficultyMode());
         equation.setText(generateEquationString(eqArray));
         answer = eqArray[2];
 
-        updateProgress(1, MODE_EASY);
+        updateProgress(1, getDifficultyMode());
     }
 
 
@@ -200,7 +228,7 @@ public class PlayScreen extends AppCompatActivity {
     public void incorrectAnswer() {
 
         incorrectAnswerCount++;
-        updateProgress(0, MODE_EASY);
+        updateProgress(0, getDifficultyMode());
     }
 
     /**
@@ -220,7 +248,7 @@ public class PlayScreen extends AppCompatActivity {
         int currentProgress;
         int totalProgress = 0;
 
-        if(difficulty == MODE_EASY) {
+        if(difficulty == MODE_EASY || difficulty == MODE_INTERMEDIATE || difficulty == MODE_HARD) { //THIS IS TEMP MAY CHANGE ALGO-----------------------------------------------
 
             points = (100 / 10);
             currentProgress = progressBar.getProgress();
@@ -305,21 +333,21 @@ public class PlayScreen extends AppCompatActivity {
             String tempString = this.seconds + "." + this.milliseconds;
             timeCalc = Double.valueOf(tempString);
 
-            if(mode_easy) {
+            if(isEasy) {
 
                 modeInt = (100/10);
 
-            }else if(mode_intermediate) {
+            }else if(isInter) {
 
                 modeInt = (100/10);
 
-            }else if(mode_hard) {
+            }else if(isHard) {
 
                 modeInt = (100/15);
 
-            }else if(mode_savant) {
+            }else if(isSavant) {
 
-                modeInt = (100/15);
+                modeInt = (100/30);
             }
 
             finalCorrect = correctAnswerCount - tempIA;
@@ -363,6 +391,14 @@ public class PlayScreen extends AppCompatActivity {
         }else if(array[3] == 2) {
 
             value = "-";
+
+        }else if(array[3] == 3) {
+
+            value = "x";
+
+        }else if(array[3] == 4) {
+
+            value = "/";
         }
 
         String finalString = firstNumber + " " + value + " " + secondNumber;
