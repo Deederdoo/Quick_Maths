@@ -176,6 +176,19 @@ public class PlayScreen extends AppCompatActivity {
 
     /**
      *
+     * I use this method so if the user presses back on
+     * their device it will send them back to the menu
+    *
+    * */
+    @Override
+    public void onBackPressed(){
+
+        Intent nextActivity = new Intent(getApplicationContext(), MenuController.class);
+        startActivity(nextActivity);
+    }
+
+    /**
+     *
      * This method sets the difficulty based on chosen
      * difficulty using the static boolean values
     *
@@ -196,7 +209,7 @@ public class PlayScreen extends AppCompatActivity {
 
         }else if(isSavant) {
 
-            return  MODE_SAVANT;
+            return MODE_SAVANT;
         }
 
         return null;
@@ -248,7 +261,7 @@ public class PlayScreen extends AppCompatActivity {
         int currentProgress;
         int totalProgress = 0;
 
-        if(difficulty == MODE_EASY || difficulty == MODE_INTERMEDIATE || difficulty == MODE_HARD) { //THIS IS TEMP MAY CHANGE ALGO-----------------------------------------------
+        if(difficulty == MODE_EASY || difficulty == MODE_INTERMEDIATE || difficulty == MODE_HARD || difficulty == MODE_SAVANT) { //THIS IS TEMP MAY CHANGE ALGO-----------------------------------------------NEED TO ADD DIFFERENT POINTS /10 /15 /30
 
             points = (100 / 10);
             currentProgress = progressBar.getProgress();
@@ -335,19 +348,19 @@ public class PlayScreen extends AppCompatActivity {
 
             if(isEasy) {
 
-                modeInt = (100/10);
+                modeInt = 10;
 
             }else if(isInter) {
 
-                modeInt = (100/10);
+                modeInt = 10;
 
             }else if(isHard) {
 
-                modeInt = (100/15);
+                modeInt = 15;
 
             }else if(isSavant) {
 
-                modeInt = (100/30);
+                modeInt = 15;
             }
 
             finalCorrect = correctAnswerCount - tempIA;

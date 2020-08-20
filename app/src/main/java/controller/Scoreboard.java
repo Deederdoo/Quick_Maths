@@ -5,10 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +48,9 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
     //URL
     private String url;
 
+    //Progress
+    private ProgressBar progressBar;
+
     //ListView
     private ListView scoreList;
 
@@ -72,6 +77,9 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
         //ListView
         scoreList = (ListView) findViewById(R.id.list_scoreboard);
 
+        //Progressbar
+        progressBar = (ProgressBar) findViewById(R.id.progress_scoreboard);
+
         //ArrayList
         sList = new ArrayList<>();
         diffList = new ArrayList<>();
@@ -91,6 +99,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
         //Buttons
         backButton = (Button) findViewById(R.id.button_scoreboard_back);
 
+        showCurrentDifficulty();
         setUrlDifficulty();
         new GetRequest().execute(url);
 
@@ -103,6 +112,39 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
+    }
+
+    /**
+     *
+     * I use this method so if the user presses back on
+     * their device it will send them back to the menu
+     *
+     * */
+    @Override
+    public void onBackPressed(){
+
+        Intent nextActivity = new Intent(getApplicationContext(), MenuController.class);
+        startActivity(nextActivity);
+    }
+
+    public void showCurrentDifficulty() {
+
+        if(isEasy){
+
+            dropdown.setSelection(0);
+
+        }else if(isInter){
+
+            dropdown.setSelection(1);
+
+        }else if(isHard){
+
+            dropdown.setSelection(2);
+
+        }else if(isSavant){
+
+            dropdown.setSelection(3);
+        }
     }
 
     @Override
@@ -260,6 +302,8 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
 
             slAdapt = new ScoreListAdapter(getApplicationContext(), sList);
             scoreList.setAdapter(slAdapt);
+            progressBar.setProgress(100);
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 }

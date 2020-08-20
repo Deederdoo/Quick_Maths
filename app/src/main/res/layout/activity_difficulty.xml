@@ -2,59 +2,132 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#393939">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rel_layout_border"
+        android:layout_margin="10dp">
 
     <RelativeLayout
         android:id="@+id/diff_layout_rel_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true">
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/diff_layout_rel_center"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@id/diff_layout_rel_top">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/image_diff_easy"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_border"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/smile_easy"/>
 
         <Button
             android:id="@+id/button_difficulty_easy"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:textColor="#b4b4b4"
+            android:background="@drawable/button_border"
+            android:layout_toRightOf="@id/image_diff_easy"
             android:text="Easy"/>
+
+        <ImageView
+            android:id="@+id/image_diff_intermediate"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_border"
+            android:layout_below="@id/button_difficulty_easy"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/hat_intermediate"/>
 
         <Button
             android:id="@+id/button_difficulty_intermediate"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:textColor="#b4b4b4"
+            android:background="@drawable/button_border"
             android:text="Intermediate"
-            android:layout_below="@id/button_difficulty_easy"/>
+            android:layout_below="@id/button_difficulty_easy"
+            android:layout_toRightOf="@id/image_diff_intermediate"/>
+
+        <ImageView
+            android:id="@+id/image_diff_hard"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_border"
+            android:layout_below="@id/button_difficulty_intermediate"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/brain_hard"/>
 
         <Button
             android:id="@+id/button_difficulty_hard"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:textColor="#b4b4b4"
+            android:background="@drawable/button_border"
             android:text="Hard"
-            android:layout_below="@id/button_difficulty_intermediate"/>
+            android:layout_below="@id/button_difficulty_intermediate"
+            android:layout_toRightOf="@id/image_diff_hard"/>
+
+        <ImageView
+            android:id="@+id/image_diff_savant"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_border"
+            android:layout_below="@id/button_difficulty_hard"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/arm_endurance"/>
 
         <Button
             android:id="@+id/button_difficulty_savant"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="Savant"
-            android:layout_below="@id/button_difficulty_hard"/>
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:textColor="#b4b4b4"
+            android:background="@drawable/button_border"
+            android:text="Endurance"
+            android:layout_below="@id/button_difficulty_hard"
+            android:layout_toRightOf="@id/image_diff_savant"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/diff_layout_rel_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp"
+        android:layout_below="@id/diff_layout_rel_center"
+        android:layout_alignParentBottom="true">
+
+    </RelativeLayout>
 
     </RelativeLayout>
 

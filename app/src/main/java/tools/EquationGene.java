@@ -163,9 +163,9 @@ public class EquationGene {
         int number1 = new Random().nextInt(16);
         int number2 = new Random().nextInt(16);
 
-        int plusOrMinusOrMultiOrDiv = new Random().nextInt(5 - 1) + 1;
+        int plusOrMinusOrMulti = new Random().nextInt(4 - 1) + 1;
 
-        if(plusOrMinusOrMultiOrDiv == 1) { // 1 = + Addition
+        if(plusOrMinusOrMulti == 1) { // 1 = + Addition
 
             int[] pArray = new int[4]; // [Number 1], [Number 2], [Answer], [Type]
 
@@ -177,7 +177,7 @@ public class EquationGene {
 
             return pArray;
 
-        }else if(plusOrMinusOrMultiOrDiv == 2) { // 2 = - Subtraction
+        }else if(plusOrMinusOrMulti == 2) { // 2 = - Subtraction
 
             int[] sArray = new int[4]; // [Number 1], [Number 2], [Answer], [Type]
 
@@ -189,23 +189,11 @@ public class EquationGene {
 
             return sArray;
 
-        }else if(plusOrMinusOrMultiOrDiv == 3) { // 3 = * Multiplication
+        }else if(plusOrMinusOrMulti == 3) { // 3 = * Multiplication
 
             int[] mArray = new int[4]; // [Number 1], [Number 2], [Answer], [Type]
 
             answer = (number1 * number2);
-            mArray[0] = number1;
-            mArray[1] = number2;
-            mArray[2] = answer;
-            mArray[3] = 3;
-
-            return mArray;
-
-        }else if(plusOrMinusOrMultiOrDiv == 4) { // 4 = / Division
-
-            int[] mArray = new int[4]; // [Number 1], [Number 2], [Answer], [Type]
-
-            answer = (number1 / number2);
             mArray[0] = number1;
             mArray[1] = number2;
             mArray[2] = answer;

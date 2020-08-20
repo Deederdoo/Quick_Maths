@@ -5,25 +5,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#393939"
     tools:context="controller.MenuController">
 
-    <Button
-        android:id="@+id/button_play"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play"
-        android:width="500px"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:background="@drawable/rel_layout_border"
+        android:layout_margin="10dp">
 
-    <Button
-        android:id="@+id/button_home_scores"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/menu_layout_rel_top"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/image_menu_logo"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/quickplus_comp"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_layout_rel_center"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/menu_layout_rel_top">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/button_play"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:text="Play"
+            android:textColor="#b4b4b4"
+            android:background="@drawable/button_border" />
+
+        <Button
+            android:id="@+id/button_home_scores"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:text="Scores"
+            android:textColor="#b4b4b4"
+            android:background="@drawable/button_border"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/button_play"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/menu_layout_rel_bottom"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Scores"
-        android:width="500px"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_below="@id/button_play"/>
+        android:layout_alignParentBottom="true">
+
+
+    </RelativeLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

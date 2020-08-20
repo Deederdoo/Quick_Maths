@@ -1,6 +1,7 @@
 package controller;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,11 +26,18 @@ public class DifficultyScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty);
 
+        //Typeface / Font
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "Cairo-SemiBold.ttf");
+
         //Buttons
         buttonEasy = (Button) findViewById(R.id.button_difficulty_easy);
+        buttonEasy.setTypeface(typeface);
         buttonInter = (Button) findViewById(R.id.button_difficulty_intermediate);
+        buttonInter.setTypeface(typeface);
         buttonHard = (Button) findViewById(R.id.button_difficulty_hard);
+        buttonHard.setTypeface(typeface);
         buttonSavant = (Button) findViewById(R.id.button_difficulty_savant);
+        buttonSavant.setTypeface(typeface);
 
         buttonEasy.setOnClickListener(new View.OnClickListener() {
             @Override

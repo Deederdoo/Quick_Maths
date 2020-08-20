@@ -83,4 +83,17 @@ public class ResultScreen extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     *
+     * I use this method so if the user presses back on
+     * their device it will send them back to the menu
+     *
+     * */
+    @Override
+    public void onBackPressed(){
+
+        Intent nextActivity = new Intent(getApplicationContext(), MenuController.class);
+        startActivity(nextActivity);
+    }
 }
