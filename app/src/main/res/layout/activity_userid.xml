@@ -2,22 +2,89 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#393939">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/rel_layout_border">
 
     <RelativeLayout
         android:id="@+id/userid_layout_rel_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="450dp">
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-7879419131748447/3801039901">
+        </com.google.android.gms.ads.AdView>
+
+        <TextView
+            android:id="@+id/text_userid_enter_userid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter your Username"
+            android:textColor="#b4b4b4"
+            android:textSize="18dp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/text_userid"/>
 
         <EditText
             android:id="@+id/text_userid"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="250dp"
-            android:layout_marginBottom="20dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
             android:layout_centerHorizontal="true"
+            android:textColor="#881425"
+            android:layout_alignParentBottom="true"
             android:hint="Enter name"
+            android:maxLength="12"
+            android:background="@drawable/button_border"
             android:gravity="center"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/userid_layout_rel_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userid_layout_rel_top">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/button_submit_userid"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Submit Name"
+            android:background="@drawable/button_border"
+            android:textColor="#b4b4b4"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/button_home_userid"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Return Home"
+            android:background="@drawable/button_border"
+            android:textColor="#b4b4b4"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/button_submit_userid"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -25,23 +92,9 @@
         android:id="@+id/userid_layout_rel_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/userid_layout_rel_top">
+        android:layout_alignParentBottom="true">
 
-        <Button
-            android:id="@+id/button_submit_userid"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Submit Name"
-            android:layout_margin="20dp"
-            android:layout_centerHorizontal="true"/>
-
-        <Button
-            android:id="@+id/button_home_userid"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Return Home"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/button_submit_userid"/>
+    </RelativeLayout>
 
     </RelativeLayout>
 

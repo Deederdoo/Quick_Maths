@@ -2,11 +2,15 @@ package controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +25,11 @@ import java.util.Set;
 import tools.EquationGene;
 import tools.TimerTool;
 
+import static controller.DifficultyScreen.isEasy;
+import static controller.DifficultyScreen.isHard;
+import static controller.DifficultyScreen.isInter;
+import static controller.DifficultyScreen.isSavant;
+
 public class PlayScreen extends AppCompatActivity {
 
     public static final String MODE_EASY = "EASY";
@@ -28,15 +37,18 @@ public class PlayScreen extends AppCompatActivity {
     public static final String MODE_HARD = "HARD";
     public static final String MODE_SAVANT = "SAVANT";
 
-    private boolean mode_easy = true;
-    private boolean mode_intermediate = false;
-    private boolean mode_hard = false;
-    private boolean mode_savant = false;
+    //Typeface
+    private Typeface typeface;
+
+    //Relative Layout
+    private RelativeLayout relTop, relCenter;
+
+    private Animation animation;
 
     private ProgressBar progressBar;
     private Button startButton, button1, button2, button3, button4;
-    private TextView timer, equation;
-    private int answer, correctAnswerCount, incorrectAnswerCount, milliseconds, seconds, minutes;
+    private TextView timer, equation, countdownTimer;
+    private int answer, correctAnswerCount, incorrectAnswerCount, milliseconds, seconds, minutes, countDownCount;
     private int[] eqArray;
 
     private Context mContext;
@@ -52,16 +64,32 @@ public class PlayScreen extends AppCompatActivity {
 
         mContext = this;
 
+        //Typeface / Font
+        typeface = Typeface.createFromAsset(getAssets(), "Cairo-SemiBold.ttf");
+
+        //Relative Layout
+        relTop = (RelativeLayout) findViewById(R.id.play_layout_rel_top);
+        relCenter = (RelativeLayout) findViewById(R.id.play_layout_rel_center);
+
         //TextView
         equation = (TextView) findViewById(R.id.text_equation);
+        equation.setTypeface(typeface);
         timer = (TextView) findViewById(R.id.text_timer);
+        timer.setTypeface(typeface);
+        countdownTimer = (TextView) findViewById(R.id.text_timer_countdown);
+        countdownTimer.setTypeface(typeface);
 
         //Buttons
         startButton = (Button) findViewById(R.id.button_start);
+        startButton.setTypeface(typeface);
         button1 = (Button) findViewById(R.id.button_ans1);
+        button1.setTypeface(typeface);
         button2 = (Button) findViewById(R.id.button_ans2);
+        button2.setTypeface(typeface);
         button3 = (Button) findViewById(R.id.button_ans3);
+        button3.setTypeface(typeface);
         button4 = (Button) findViewById(R.id.button_ans4);
+        button4.setTypeface(typeface);
 
         //ProgressBar
         progressBar = (ProgressBar) findViewById(R.id.progress_progress);
@@ -83,17 +111,13 @@ public class PlayScreen extends AppCompatActivity {
 
                 if(timerTool == null) {
 
-                    timerTool = new TimerTool(mContext);
-                    timerThread = new Thread(timerTool);
-                    timerThread.start();
-                    timerTool.startTimer();
+                    startButton.setVisibility(View.INVISIBLE);
+                    countdownAnimation(); // This will also start the timer thread once the countdown is complete
 
                     equationGene = new EquationGene();
-                    eqArray = equationGene.selectDifficulty(MODE_EASY); // temporary
+                    eqArray = equationGene.selectDifficulty(getDifficultyMode());
                     equation.setText(generateEquationString(eqArray));
                     answer = eqArray[2];
-
-                    startButton.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -176,6 +200,98 @@ public class PlayScreen extends AppCompatActivity {
 
     /**
      *
+     * Animation for the countdown textview before game starts
+     * This method also starts the timer thread once the countdown is finished
+    *
+    * */
+    private void countdownAnimation() {
+
+        countDownCount = 3;
+        countdownTimer.setText(String.valueOf(countDownCount));
+        countdownTimer.setVisibility(View.VISIBLE);
+
+        animation = AnimationUtils.loadAnimation(this, R.anim.animation_transition_in_fast_repeat_1);
+        countdownTimer.setAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) { }
+
+            @Override
+            public void onAnimationEnd(Animation animation) { }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+                if(countDownCount != 1) {
+
+                    countDownCount--;
+                    countdownTimer.setText(String.valueOf(countDownCount));
+                }else{
+
+                    animation.cancel();
+                    countdownTimer.setVisibility(View.INVISIBLE);
+                    relTop.setVisibility(View.VISIBLE);
+                    relCenter.setVisibility(View.VISIBLE);
+
+                    timerTool = new TimerTool(mContext);
+                    timerThread = new Thread(timerTool);
+                    timerThread.start();
+                    timerTool.startTimer();
+                }
+            }
+        });
+
+        animation.start();
+    }
+
+    /**
+     *
+     * I use this method so if the user presses back on
+     * their device it will send them back to the menu
+     * and also stop the timer
+    *
+    * */
+    @Override
+    public void onBackPressed() {
+
+        if(timerTool != null) {
+
+            timerTool.stopTimer();
+        }
+        Intent nextActivity = new Intent(getApplicationContext(), MenuController.class);
+        startActivity(nextActivity);
+    }
+
+    /**
+     *
+     * This method sets the difficulty based on chosen
+     * difficulty using the static boolean values
+    *
+    * */
+    public String getDifficultyMode() {
+
+        if(isEasy){
+
+            return MODE_EASY;
+
+        }else if(isInter){
+
+            return MODE_INTERMEDIATE;
+
+        }else if(isHard){
+
+            return MODE_HARD;
+
+        }else if(isSavant) {
+
+            return MODE_SAVANT;
+        }
+
+        return null;
+    }
+
+    /**
+     *
      * When user correctly answers the equation, this method will
      * be called. Correct answers will be saved
     *
@@ -183,11 +299,11 @@ public class PlayScreen extends AppCompatActivity {
     public void correctAnswer() {
 
         correctAnswerCount++;
-        eqArray = equationGene.selectDifficulty(MODE_EASY); // temporary
+        eqArray = equationGene.selectDifficulty(getDifficultyMode());
         equation.setText(generateEquationString(eqArray));
         answer = eqArray[2];
 
-        updateProgress(1, MODE_EASY);
+        updateProgress(1, getDifficultyMode());
     }
 
 
@@ -200,7 +316,7 @@ public class PlayScreen extends AppCompatActivity {
     public void incorrectAnswer() {
 
         incorrectAnswerCount++;
-        updateProgress(0, MODE_EASY);
+        updateProgress(0, getDifficultyMode());
     }
 
     /**
@@ -220,7 +336,7 @@ public class PlayScreen extends AppCompatActivity {
         int currentProgress;
         int totalProgress = 0;
 
-        if(difficulty == MODE_EASY) {
+        if(difficulty == MODE_EASY || difficulty == MODE_INTERMEDIATE || difficulty == MODE_HARD || difficulty == MODE_SAVANT) { //THIS IS TEMP MAY CHANGE ALGO-----------------------------------------------NEED TO ADD DIFFERENT POINTS /10 /15 /30
 
             points = (100 / 10);
             currentProgress = progressBar.getProgress();
@@ -305,21 +421,21 @@ public class PlayScreen extends AppCompatActivity {
             String tempString = this.seconds + "." + this.milliseconds;
             timeCalc = Double.valueOf(tempString);
 
-            if(mode_easy) {
+            if(isEasy) {
 
-                modeInt = (100/10);
+                modeInt = 10;
 
-            }else if(mode_intermediate) {
+            }else if(isInter) {
 
-                modeInt = (100/10);
+                modeInt = 10;
 
-            }else if(mode_hard) {
+            }else if(isHard) {
 
-                modeInt = (100/15);
+                modeInt = 15;
 
-            }else if(mode_savant) {
+            }else if(isSavant) {
 
-                modeInt = (100/15);
+                modeInt = 15;
             }
 
             finalCorrect = correctAnswerCount - tempIA;
@@ -363,6 +479,14 @@ public class PlayScreen extends AppCompatActivity {
         }else if(array[3] == 2) {
 
             value = "-";
+
+        }else if(array[3] == 3) {
+
+            value = "x";
+
+        }else if(array[3] == 4) {
+
+            value = "/";
         }
 
         String finalString = firstNumber + " " + value + " " + secondNumber;
