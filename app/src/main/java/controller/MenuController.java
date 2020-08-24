@@ -10,8 +10,20 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.quickmaths.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 public class MenuController extends AppCompatActivity {
+
+    //Typeface
+    private Typeface typeface;
+
+    //AdView
+    private AdView mAdView;
 
     //Buttons
     private Button playButton, scoreButton;
@@ -21,8 +33,18 @@ public class MenuController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        //Ad Setup
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView_menu);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         //Typeface / Font
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "Cairo-SemiBold.ttf");
+        typeface = Typeface.createFromAsset(getAssets(), "Cairo-SemiBold.ttf");
 
         //Buttons
         playButton = (Button) findViewById(R.id.button_play);

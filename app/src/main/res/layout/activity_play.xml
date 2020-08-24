@@ -2,37 +2,38 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#393939">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rel_layout_border"
+        android:layout_margin="10dp">
 
         <RelativeLayout
             android:id="@+id/play_layout_rel_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:visibility="invisible">
 
         <TextView
             android:id="@+id/text_equation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
             android:layout_centerHorizontal="true"
-            android:text="Equation" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/play_layout_rel_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true">
+            android:layout_margin="20dp"
+            android:textColor="#b4b4b4"
+            android:textSize="36sp"/>
 
             <ProgressBar
                 android:id="@+id/progress_progress"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_below="@id/text_equation"
                 style="@android:style/Widget.ProgressBar.Horizontal"/>
 
             <TextView
@@ -40,21 +41,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:textColor="#b4b4b4"
+                android:textSize="24sp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/progress_progress"/>
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/play_layout_rel_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/play_layout_rel_top"
+            android:visibility="invisible">
+
             <RelativeLayout
-                android:id="@+id/layout_rel_bottom_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="150dp">
+                android:layout_centerHorizontal="true">
 
                 <Button
                     android:id="@+id/button_ans1"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:layout_margin="25dp" />
+                    android:layout_margin="25dp"
+                    android:textColor="#b4b4b4"
+                    android:textSize="24sp"
+                    android:background="@drawable/button_border"/>
 
                 <Button
                     android:id="@+id/button_ans2"
@@ -62,6 +75,9 @@
                     android:layout_height="100dp"
                     android:layout_toRightOf="@id/button_ans1"
                     android:layout_margin="25dp"
+                    android:textColor="#b4b4b4"
+                    android:textSize="24sp"
+                    android:background="@drawable/button_border"
                     />
 
                 <Button
@@ -70,6 +86,9 @@
                     android:layout_height="100dp"
                     android:layout_below="@id/button_ans1"
                     android:layout_margin="25dp"
+                    android:textColor="#b4b4b4"
+                    android:textSize="24sp"
+                    android:background="@drawable/button_border"
                     />
 
                 <Button
@@ -79,19 +98,56 @@
                     android:layout_toRightOf="@id/button_ans1"
                     android:layout_below="@id/button_ans1"
                     android:layout_margin="25dp"
+                    android:textColor="#b4b4b4"
+                    android:textSize="24sp"
+                    android:background="@drawable/button_border"
                     />
 
             </RelativeLayout>
 
         </RelativeLayout>
 
-    <Button
-        android:id="@+id/button_start"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Start"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/play_layout_rel_bottom"
-        android:layout_centerHorizontal="true"/>
+        <RelativeLayout
+            android:id="@+id/play_layout_rel_center2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/play_layout_rel_top">
+
+            <TextView
+                android:id="@+id/text_timer_countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="#b4b4b4"
+                android:textSize="150sp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/play_layout_rel_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/button_start"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="Start"
+                android:textColor="#b4b4b4"
+                android:textSize="18sp"
+                android:background="@drawable/button_border"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

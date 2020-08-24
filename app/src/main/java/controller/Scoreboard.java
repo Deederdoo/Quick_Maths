@@ -1,6 +1,7 @@
 package controller;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.ScoreListAdapter;
+import adapters.ScoreSpinnerAdapter;
 import models.Score;
 
 import static controller.DifficultyScreen.isEasy;
@@ -60,8 +63,11 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
     //ArrayList / Adapter
     private List<Score> sList;
     private ScoreListAdapter slAdapt;
-    private ArrayAdapter<String> dropAdapt;
     private List<String> diffList;
+    private ScoreSpinnerAdapter dropAdapt;
+
+    //Typeface
+    private Typeface typeface;
 
     //Score
     private Score score;
@@ -69,10 +75,21 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
     //Button
     private Button backButton;
 
+    //Bundled items
+    private Bundle bundle;
+    private Intent nextActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
+
+        //Typeface / Font
+        typeface = Typeface.createFromAsset(getAssets(), "Cairo-SemiBold.ttf");
+
+        //Bundled items
+        nextActivity = getIntent();
+        bundle = nextActivity.getExtras();
 
         //ListView
         scoreList = (ListView) findViewById(R.id.list_scoreboard);
@@ -89,7 +106,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
         diffList.add(MODE_SAVANT);
 
         //Adapter
-        dropAdapt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, diffList);
+        dropAdapt = new ScoreSpinnerAdapter(this, R.layout.item_spinner_scoreboard, diffList);
 
         //Spinner
         dropdown = (Spinner) findViewById(R.id.spinner_scoreboard_difficulty);
@@ -98,6 +115,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
 
         //Buttons
         backButton = (Button) findViewById(R.id.button_scoreboard_back);
+        backButton.setTypeface(typeface);
 
         showCurrentDifficulty();
         setUrlDifficulty();
@@ -288,6 +306,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
                     score = new Score();
 
                     score.setId(jsonObject.getInt("id"));
+                    score.setUx_id(jsonObject.getString("ux_id"));
                     score.setRanking(jsonObject.getInt("ranking"));
                     score.setScore(jsonObject.getDouble("score"));
                     score.setUserid(jsonObject.getString("userid"));
@@ -304,6 +323,19 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
             scoreList.setAdapter(slAdapt);
             progressBar.setProgress(100);
             progressBar.setVisibility(View.INVISIBLE);
+
+            // This is used if they player just finished submitting their score
+            // It will focus on their newly added score in the list
+            if(bundle != null){
+
+                for(int i = 0; i < sList.size(); i++){
+
+                    if(sList.get(i).getUx_id().equals(bundle.getString("ux_id"))){
+
+                        scoreList.setSelection(sList.get(i).getRanking());
+                    }
+                }
+            }
         }
     }
 }

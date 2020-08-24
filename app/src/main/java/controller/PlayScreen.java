@@ -2,11 +2,15 @@ package controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,10 +37,18 @@ public class PlayScreen extends AppCompatActivity {
     public static final String MODE_HARD = "HARD";
     public static final String MODE_SAVANT = "SAVANT";
 
+    //Typeface
+    private Typeface typeface;
+
+    //Relative Layout
+    private RelativeLayout relTop, relCenter;
+
+    private Animation animation;
+
     private ProgressBar progressBar;
     private Button startButton, button1, button2, button3, button4;
-    private TextView timer, equation;
-    private int answer, correctAnswerCount, incorrectAnswerCount, milliseconds, seconds, minutes;
+    private TextView timer, equation, countdownTimer;
+    private int answer, correctAnswerCount, incorrectAnswerCount, milliseconds, seconds, minutes, countDownCount;
     private int[] eqArray;
 
     private Context mContext;
@@ -52,16 +64,32 @@ public class PlayScreen extends AppCompatActivity {
 
         mContext = this;
 
+        //Typeface / Font
+        typeface = Typeface.createFromAsset(getAssets(), "Cairo-SemiBold.ttf");
+
+        //Relative Layout
+        relTop = (RelativeLayout) findViewById(R.id.play_layout_rel_top);
+        relCenter = (RelativeLayout) findViewById(R.id.play_layout_rel_center);
+
         //TextView
         equation = (TextView) findViewById(R.id.text_equation);
+        equation.setTypeface(typeface);
         timer = (TextView) findViewById(R.id.text_timer);
+        timer.setTypeface(typeface);
+        countdownTimer = (TextView) findViewById(R.id.text_timer_countdown);
+        countdownTimer.setTypeface(typeface);
 
         //Buttons
         startButton = (Button) findViewById(R.id.button_start);
+        startButton.setTypeface(typeface);
         button1 = (Button) findViewById(R.id.button_ans1);
+        button1.setTypeface(typeface);
         button2 = (Button) findViewById(R.id.button_ans2);
+        button2.setTypeface(typeface);
         button3 = (Button) findViewById(R.id.button_ans3);
+        button3.setTypeface(typeface);
         button4 = (Button) findViewById(R.id.button_ans4);
+        button4.setTypeface(typeface);
 
         //ProgressBar
         progressBar = (ProgressBar) findViewById(R.id.progress_progress);
@@ -83,17 +111,13 @@ public class PlayScreen extends AppCompatActivity {
 
                 if(timerTool == null) {
 
-                    timerTool = new TimerTool(mContext);
-                    timerThread = new Thread(timerTool);
-                    timerThread.start();
-                    timerTool.startTimer();
+                    startButton.setVisibility(View.INVISIBLE);
+                    countdownAnimation(); // This will also start the timer thread once the countdown is complete
 
                     equationGene = new EquationGene();
                     eqArray = equationGene.selectDifficulty(getDifficultyMode());
                     equation.setText(generateEquationString(eqArray));
                     answer = eqArray[2];
-
-                    startButton.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -176,13 +200,64 @@ public class PlayScreen extends AppCompatActivity {
 
     /**
      *
+     * Animation for the countdown textview before game starts
+     * This method also starts the timer thread once the countdown is finished
+    *
+    * */
+    private void countdownAnimation() {
+
+        countDownCount = 3;
+        countdownTimer.setText(String.valueOf(countDownCount));
+        countdownTimer.setVisibility(View.VISIBLE);
+
+        animation = AnimationUtils.loadAnimation(this, R.anim.animation_transition_in_fast_repeat_1);
+        countdownTimer.setAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) { }
+
+            @Override
+            public void onAnimationEnd(Animation animation) { }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+                if(countDownCount != 1) {
+
+                    countDownCount--;
+                    countdownTimer.setText(String.valueOf(countDownCount));
+                }else{
+
+                    animation.cancel();
+                    countdownTimer.setVisibility(View.INVISIBLE);
+                    relTop.setVisibility(View.VISIBLE);
+                    relCenter.setVisibility(View.VISIBLE);
+
+                    timerTool = new TimerTool(mContext);
+                    timerThread = new Thread(timerTool);
+                    timerThread.start();
+                    timerTool.startTimer();
+                }
+            }
+        });
+
+        animation.start();
+    }
+
+    /**
+     *
      * I use this method so if the user presses back on
      * their device it will send them back to the menu
+     * and also stop the timer
     *
     * */
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
+        if(timerTool != null) {
+
+            timerTool.stopTimer();
+        }
         Intent nextActivity = new Intent(getApplicationContext(), MenuController.class);
         startActivity(nextActivity);
     }

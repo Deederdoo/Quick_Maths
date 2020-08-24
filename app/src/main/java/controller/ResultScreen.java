@@ -1,6 +1,7 @@
 package controller;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,11 +16,14 @@ public class ResultScreen extends AppCompatActivity {
     private int[] standing = new int[2];
     private double finalScore = 0;
 
+    //Typeface
+    private Typeface typeface;
+
     //TextView
     private TextView correctAnswers, incorrectAnswers, score;
 
     //Buttons
-    private Button submitScore, playAgain;
+    private Button submitScore, playAgain, buttonHome;
 
     private Bundle myBundle;
     private Intent nextActivity;
@@ -29,10 +33,16 @@ public class ResultScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        //Typeface / Font
+        typeface = Typeface.createFromAsset(getAssets(), "Cairo-SemiBold.ttf");
+
         //TextView
         correctAnswers = (TextView) findViewById(R.id.text_right_answer);
+        correctAnswers.setTypeface(typeface);
         incorrectAnswers = (TextView) findViewById(R.id.text_wrong_answer);
+        incorrectAnswers.setTypeface(typeface);
         score = (TextView) findViewById(R.id.text_score);
+        score.setTypeface(typeface);
 
         //Intent
         nextActivity = getIntent();
@@ -42,7 +52,11 @@ public class ResultScreen extends AppCompatActivity {
 
         //Buttons
         submitScore = (Button) findViewById(R.id.button_submit_score);
+        submitScore.setTypeface(typeface);
         playAgain = (Button) findViewById(R.id.button_play_again);
+        playAgain.setTypeface(typeface);
+        buttonHome = (Button) findViewById(R.id.button_result_home);
+        buttonHome.setTypeface(typeface);
 
         standing = myBundle.getIntArray("standing");
         correctAnswers.setText(String.valueOf(standing[0]));

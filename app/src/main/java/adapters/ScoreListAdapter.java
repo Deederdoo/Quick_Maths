@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,16 @@ public class ScoreListAdapter extends ArrayAdapter<Score> {
 
     private Context sContext;
     private List<Score> scoreList;
+    private Typeface typeface;
 
     public ScoreListAdapter(Context context, List<Score> objects) {
         super(context, 0, objects);
 
         sContext = context;
         scoreList = objects;
+
+        //Typeface / Font
+        typeface = Typeface.createFromAsset(sContext.getAssets(), "Cairo-SemiBold.ttf");
     }
 
     @Override
@@ -34,12 +39,15 @@ public class ScoreListAdapter extends ArrayAdapter<Score> {
 
         TextView textRank = (TextView) score.findViewById(R.id.text_list_ranking);
         textRank.setText(String.valueOf(scoreList.get(position).getRanking()));
+        textRank.setTypeface(typeface);
 
         TextView textUserid = (TextView) score.findViewById(R.id.text_list_userid);
         textUserid.setText(scoreList.get(position).getUserid());
+        textUserid.setTypeface(typeface);
 
         TextView textScore = (TextView) score.findViewById(R.id.text_list_score);
         textScore.setText(String.valueOf(scoreList.get(position).getScore()));
+        textScore.setTypeface(typeface);
 
         return score;
     }

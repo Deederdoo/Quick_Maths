@@ -17,6 +17,16 @@
         android:layout_height="200dp"
         android:layout_alignParentTop="true">
 
+        <TextView
+            android:id="@+id/text_difficulty_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#b4b4b4"
+            android:textSize="25dp"
+            android:text="Select Difficulty"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -46,6 +56,7 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:textColor="#b4b4b4"
+            android:textSize="18sp"
             android:background="@drawable/button_border"
             android:layout_toRightOf="@id/image_diff_easy"
             android:text="Easy"/>
@@ -67,6 +78,7 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:textColor="#b4b4b4"
+            android:textSize="18sp"
             android:background="@drawable/button_border"
             android:text="Intermediate"
             android:layout_below="@id/button_difficulty_easy"
@@ -89,6 +101,7 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:textColor="#b4b4b4"
+            android:textSize="18sp"
             android:background="@drawable/button_border"
             android:text="Hard"
             android:layout_below="@id/button_difficulty_intermediate"
@@ -111,6 +124,7 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:textColor="#b4b4b4"
+            android:textSize="18sp"
             android:background="@drawable/button_border"
             android:text="Endurance"
             android:layout_below="@id/button_difficulty_hard"
@@ -126,6 +140,17 @@
         android:layout_height="200dp"
         android:layout_below="@id/diff_layout_rel_center"
         android:layout_alignParentBottom="true">
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        </com.google.android.gms.ads.AdView>
 
     </RelativeLayout>
 
