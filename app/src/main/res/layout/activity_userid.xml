@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-7879419131748447/3801039901">
+            ads:adSize="MEDIUM_RECTANGLE"
+            ads:adUnitId="ca-app-pub-7879419131748447/2158663475">
         </com.google.android.gms.ads.AdView>
 
         <TextView
