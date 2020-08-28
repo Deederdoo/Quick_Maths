@@ -25,7 +25,7 @@ public class DifficultyScreen extends AppCompatActivity {
     public static boolean isEasy = true;
     public static boolean isInter = false;
     public static boolean isHard = false;
-    public static boolean isSavant = false;
+    public static boolean isEndurance = false;
 
     //TextView
     private TextView titleText;
@@ -72,7 +72,7 @@ public class DifficultyScreen extends AppCompatActivity {
                 isEasy = true;
                 isInter = false;
                 isHard = false;
-                isSavant = false;
+                isEndurance = false;
 
                 Intent nextActivity = new Intent(DifficultyScreen.this, PlayScreen.class);
                 startActivity(nextActivity);
@@ -86,7 +86,7 @@ public class DifficultyScreen extends AppCompatActivity {
                 isEasy = false;
                 isInter = true;
                 isHard = false;
-                isSavant = false;
+                isEndurance = false;
 
                 Intent nextActivity = new Intent(DifficultyScreen.this, PlayScreen.class);
                 startActivity(nextActivity);
@@ -100,7 +100,7 @@ public class DifficultyScreen extends AppCompatActivity {
                 isEasy = false;
                 isInter = false;
                 isHard = true;
-                isSavant = false;
+                isEndurance = false;
 
                 Intent nextActivity = new Intent(DifficultyScreen.this, PlayScreen.class);
                 startActivity(nextActivity);
@@ -114,7 +114,7 @@ public class DifficultyScreen extends AppCompatActivity {
                 isEasy = false;
                 isInter = false;
                 isHard = false;
-                isSavant = true;
+                isEndurance = true;
 
                 Intent nextActivity = new Intent(DifficultyScreen.this, PlayScreen.class);
                 startActivity(nextActivity);

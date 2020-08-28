@@ -28,14 +28,14 @@ import tools.TimerTool;
 import static controller.DifficultyScreen.isEasy;
 import static controller.DifficultyScreen.isHard;
 import static controller.DifficultyScreen.isInter;
-import static controller.DifficultyScreen.isSavant;
+import static controller.DifficultyScreen.isEndurance;
 
 public class PlayScreen extends AppCompatActivity {
 
     public static final String MODE_EASY = "EASY";
     public static final String MODE_INTERMEDIATE = "INTERMEDIATE";
     public static final String MODE_HARD = "HARD";
-    public static final String MODE_SAVANT = "SAVANT";
+    public static final String MODE_ENDURANCE = "ENDURANCE";
 
     //Typeface
     private Typeface typeface;
@@ -98,29 +98,40 @@ public class PlayScreen extends AppCompatActivity {
         correctAnswerCount = 0;
         incorrectAnswerCount = 0;
 
+        if(timerTool == null) {
+
+            startButton.setVisibility(View.INVISIBLE);
+            countdownAnimation(); // This will also start the timer thread once the countdown is complete
+
+            equationGene = new EquationGene();
+            eqArray = equationGene.selectDifficulty(getDifficultyMode());
+            equation.setText(generateEquationString(eqArray));
+            answer = eqArray[2];
+        }
+
         /**
         *
          * When the Play button is pressed the timer begins
          * and the players game will begin
         *
         */
-        startButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                if(timerTool == null) {
-
-                    startButton.setVisibility(View.INVISIBLE);
-                    countdownAnimation(); // This will also start the timer thread once the countdown is complete
-
-                    equationGene = new EquationGene();
-                    eqArray = equationGene.selectDifficulty(getDifficultyMode());
-                    equation.setText(generateEquationString(eqArray));
-                    answer = eqArray[2];
-                }
-            }
-        });
+//        startButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//
+//                if(timerTool == null) {
+//
+//                    startButton.setVisibility(View.INVISIBLE);
+//                    countdownAnimation(); // This will also start the timer thread once the countdown is complete
+//
+//                    equationGene = new EquationGene();
+//                    eqArray = equationGene.selectDifficulty(getDifficultyMode());
+//                    equation.setText(generateEquationString(eqArray));
+//                    answer = eqArray[2];
+//                }
+//            }
+//        });
 
         /**
          *
@@ -282,9 +293,9 @@ public class PlayScreen extends AppCompatActivity {
 
             return MODE_HARD;
 
-        }else if(isSavant) {
+        }else if(isEndurance) {
 
-            return MODE_SAVANT;
+            return MODE_ENDURANCE;
         }
 
         return null;
@@ -332,40 +343,53 @@ public class PlayScreen extends AppCompatActivity {
     * */
     private void updateProgress(int progress, String difficulty) {
 
-        int points;
+        int points = 0;
         int currentProgress;
         int totalProgress = 0;
 
-        if(difficulty == MODE_EASY || difficulty == MODE_INTERMEDIATE || difficulty == MODE_HARD || difficulty == MODE_SAVANT) { //THIS IS TEMP MAY CHANGE ALGO-----------------------------------------------NEED TO ADD DIFFERENT POINTS /10 /15 /30
+        if(difficulty == MODE_EASY) {
 
             points = (100 / 10);
-            currentProgress = progressBar.getProgress();
 
-            if(progress == 0 && currentProgress != 0) { // Negative progress
+        }else if(difficulty == MODE_INTERMEDIATE) {
 
-                totalProgress = currentProgress - points;
+            points = (100 / 10);
 
-            } else if(progress == 1) { // Positive progress
+        }else if(difficulty == MODE_HARD) {
 
-                totalProgress = points + currentProgress;
-            }
+            points = (100 / 10);
 
-            progressBar.setProgress(totalProgress);
+        }else if(difficulty == MODE_ENDURANCE) {
 
-            if(totalProgress == 100) {
+            points = (100 / 20);
+        }
 
-                timerTool.stopTimer();
-                double tempScore = calculateFinalTime();
-                Bundle myBundle = new Bundle();
-                int[] standing = new int[2]; // holds the correctAnswerCount and incorrectAnswerCount
-                standing[0] = correctAnswerCount;
-                standing[1] = incorrectAnswerCount;
-                Intent nextActivity = new Intent(PlayScreen.this, ResultScreen.class);
-                myBundle.putIntArray("standing", standing);
-                myBundle.putDouble("finalscore", tempScore);
-                nextActivity.putExtras(myBundle);
-                startActivity(nextActivity);
-            }
+        currentProgress = progressBar.getProgress();
+
+        if(progress == 0 && currentProgress != 0) { // Negative progress
+
+            totalProgress = currentProgress - points;
+
+        } else if(progress == 1) { // Positive progress
+
+            totalProgress = points + currentProgress;
+        }
+
+        progressBar.setProgress(totalProgress);
+
+        if(totalProgress == 100) {
+
+            timerTool.stopTimer();
+            double tempScore = calculateFinalTime();
+            Bundle myBundle = new Bundle();
+            int[] standing = new int[2]; // holds the correctAnswerCount and incorrectAnswerCount
+            standing[0] = correctAnswerCount;
+            standing[1] = incorrectAnswerCount;
+            Intent nextActivity = new Intent(PlayScreen.this, ResultScreen.class);
+            myBundle.putIntArray("standing", standing);
+            myBundle.putDouble("finalscore", tempScore);
+            nextActivity.putExtras(myBundle);
+            startActivity(nextActivity);
         }
     }
 
@@ -431,11 +455,11 @@ public class PlayScreen extends AppCompatActivity {
 
             }else if(isHard) {
 
-                modeInt = 15;
+                modeInt = 10;
 
-            }else if(isSavant) {
+            }else if(isEndurance) {
 
-                modeInt = 15;
+                modeInt = 20;
             }
 
             finalCorrect = correctAnswerCount - tempIA;
@@ -523,6 +547,16 @@ public class PlayScreen extends AppCompatActivity {
         while(aNumb.size() < 4) {
 
             int tempNum = random.nextInt(max - min + 1) + min;
+
+            if(tempNum < 0 && isEasy){ //Makes sure the button answers don't go below 0
+
+                tempNum = random.nextInt(max - min + 1) + min;
+
+            }else if(tempNum < 0 && isInter){ //Makes sure the button answers don't go below 0
+
+                tempNum = random.nextInt(max - min + 1) + min;
+            }
+
             aNumb.add(tempNum);
         }
 

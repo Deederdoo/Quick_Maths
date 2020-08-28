@@ -4,16 +4,12 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,11 +36,11 @@ import models.Score;
 import static controller.DifficultyScreen.isEasy;
 import static controller.DifficultyScreen.isHard;
 import static controller.DifficultyScreen.isInter;
-import static controller.DifficultyScreen.isSavant;
+import static controller.DifficultyScreen.isEndurance;
 import static controller.PlayScreen.MODE_EASY;
 import static controller.PlayScreen.MODE_HARD;
 import static controller.PlayScreen.MODE_INTERMEDIATE;
-import static controller.PlayScreen.MODE_SAVANT;
+import static controller.PlayScreen.MODE_ENDURANCE;
 
 public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -103,7 +99,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
         diffList.add(MODE_EASY);
         diffList.add(MODE_INTERMEDIATE);
         diffList.add(MODE_HARD);
-        diffList.add(MODE_SAVANT);
+        diffList.add(MODE_ENDURANCE);
 
         //Adapter
         dropAdapt = new ScoreSpinnerAdapter(this, R.layout.item_spinner_scoreboard, diffList);
@@ -159,7 +155,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
 
             dropdown.setSelection(2);
 
-        }else if(isSavant){
+        }else if(isEndurance){
 
             dropdown.setSelection(3);
         }
@@ -173,7 +169,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
             isEasy = true;
             isInter = false;
             isHard = false;
-            isSavant = false;
+            isEndurance = false;
             sList.clear();
             setUrlDifficulty();
             new GetRequest().execute(url);
@@ -183,7 +179,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
             isEasy = false;
             isInter = true;
             isHard = false;
-            isSavant = false;
+            isEndurance = false;
             sList.clear();
             setUrlDifficulty();
             new GetRequest().execute(url);
@@ -193,7 +189,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
             isEasy = false;
             isInter = false;
             isHard = true;
-            isSavant = false;
+            isEndurance = false;
             sList.clear();
             setUrlDifficulty();
             new GetRequest().execute(url);
@@ -203,7 +199,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
             isEasy = false;
             isInter = false;
             isHard = false;
-            isSavant = true;
+            isEndurance = true;
             sList.clear();
             setUrlDifficulty();
             new GetRequest().execute(url);
@@ -229,9 +225,9 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
 
             url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_hard";
 
-        }else if(isSavant){
+        }else if(isEndurance){
 
-            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_savant";
+            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_endurance";
         }
     }
 
@@ -332,7 +328,7 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
 
                     if(sList.get(i).getUx_id().equals(bundle.getString("ux_id"))){
 
-                        scoreList.setSelection(sList.get(i).getRanking());
+                        scoreList.setSelection(sList.get(i).getRanking() - 1);
                     }
                 }
             }

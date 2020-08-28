@@ -5,13 +5,17 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quickmaths.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +26,15 @@ import tools.PostRequest;
 import static controller.DifficultyScreen.isEasy;
 import static controller.DifficultyScreen.isHard;
 import static controller.DifficultyScreen.isInter;
-import static controller.DifficultyScreen.isSavant;
+import static controller.DifficultyScreen.isEndurance;
 
 public class UserIDScreen extends AppCompatActivity {
 
     //Connection
     private String url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/score";
+
+    // Banner ad
+    private AdView mAdView;
 
     //Buttons
     private Button submitName, backHome;
@@ -45,6 +52,15 @@ public class UserIDScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userid);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView_menu);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         //Typeface / Font
         typeface = Typeface.createFromAsset(getAssets(), "Cairo-SemiBold.ttf");
@@ -125,9 +141,9 @@ public class UserIDScreen extends AppCompatActivity {
 
             url += "_hard";
 
-        }else if(isSavant){
+        }else if(isEndurance){
 
-            url += "_savant";
+            url += "_endurance";
         }
     }
 }
