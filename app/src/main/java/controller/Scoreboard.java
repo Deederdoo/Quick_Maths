@@ -13,7 +13,7 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.quickmaths.R;
+import com.quickplus.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -215,19 +215,19 @@ public class Scoreboard extends AppCompatActivity implements AdapterView.OnItemS
 
         if(isEasy){
 
-            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_easy";
+            url = "http://deedoodle.com/API_Scoreboard/webapi/myresource/scores_easy";
 
         }else if(isInter){
 
-            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_intermediate";
+            url = "http://deedoodle.com/API_Scoreboard/webapi/myresource/scores_intermediate";
 
         }else if(isHard){
 
-            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_hard";
+            url = "http://deedoodle.com/API_Scoreboard/webapi/myresource/scores_hard";
 
         }else if(isEndurance){
 
-            url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/scores_endurance";
+            url = "http://deedoodle.com/API_Scoreboard/webapi/myresource/scores_endurance";
         }
     }
 

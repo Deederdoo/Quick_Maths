@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.quickmaths.R;
+import com.quickplus.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -31,7 +31,7 @@ import static controller.DifficultyScreen.isEndurance;
 public class UserIDScreen extends AppCompatActivity {
 
     //Connection
-    private String url = "http://192.168.2.129:8080/API_Scoreboard/webapi/myresource/score";
+    private String url = "http://deedoodle.com/API_Scoreboard/webapi/myresource/score";
 
     // Banner ad
     private AdView mAdView;
@@ -85,7 +85,7 @@ public class UserIDScreen extends AppCompatActivity {
                 String tempUXID = generateUID(userid.getText().toString());
                 setUrlDifficulty();
                 String jsonString = "{\"ux_id\": \"" + tempUXID + "\", \"score\": " + bundle.getDouble("finalscore") + ", \"userid\": \"" + userid.getText().toString() + "\"}";
-                Log.e("Testing", "JsonString: " + jsonString);
+                //Log.e("Testing", "JsonString: " + jsonString);
 
                 new PostRequest().execute(url, jsonString);
 
