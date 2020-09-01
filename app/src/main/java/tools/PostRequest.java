@@ -38,7 +38,7 @@ public class PostRequest extends AsyncTask<String, Integer, String> {
 
             urlConnection.connect();
 
-            Log.e("", "Response code: " + urlConnection.getResponseCode());
+            //Log.e("", "Response code: " + urlConnection.getResponseCode());
 
         }catch(IOException e){
 

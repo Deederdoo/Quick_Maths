@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.quickmaths.R;
+import com.quickplus.R;
 
 import java.text.DecimalFormat;
 import java.util.LinkedHashSet;
@@ -463,15 +463,15 @@ public class PlayScreen extends AppCompatActivity {
             }
 
             finalCorrect = correctAnswerCount - tempIA;
-            Log.e("T", " " + finalCorrect);
+            //Log.e("T", " " + finalCorrect);
             timeCalc *= 0.6;
-            Log.e("T", " " + timeCalc);
+            //Log.e("T", " " + timeCalc);
             finalCorrect *= 100;
-            Log.e("T", " " + finalCorrect);
+            //Log.e("T", " " + finalCorrect);
             finalCorrect -= timeCalc;
-            Log.e("T", " " + finalCorrect);
+            //Log.e("T", " " + finalCorrect);
             finalCorrect /= modeInt;
-            Log.e("T", " " + finalCorrect);
+            //Log.e("T", " " + finalCorrect);
 
             return Double.valueOf(deciF.format(finalCorrect));
         }
